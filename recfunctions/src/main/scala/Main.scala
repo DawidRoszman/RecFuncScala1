@@ -2,18 +2,18 @@
   println("Hello, world!")
 }
 
-def jestPierwsza(n: Int): Boolean = {
+def isPrime(n: Int): Boolean = {
   require(n >= 2)
 
   @annotation.tailrec
-  def pomocnicza(a: Int, b: Int): Boolean = {
+  def go(a: Int, b: Int): Boolean = {
     b match {
       case 1 => true
       case _ if a%b == 0 => false
-      case _ if a%b != 0 => pomocnicza(a, b/2)
+      case _ if a%b != 0 => go(a, b/2)
     }
   }
-  pomocnicza(n, n/2)
+  go(n, n/2)
 }
 
 def reverseString(napis: String): String = {
@@ -30,14 +30,14 @@ def reverseString(napis: String): String = {
 
 def IntToBin(liczba: Int):Int = {
     @annotation.tailrec
-    def pomocnicza(liczba: Int, acc: String): String = {
+    def go(liczba: Int, acc: String): String = {
         liczba match {
             case 0 => acc
-            case _ if liczba%2 == 1 => pomocnicza(liczba/2, acc + "1")
-            case _ if liczba%2 == 0 => pomocnicza(liczba/2, acc + "0")
+            case _ if liczba%2 == 1 => go(liczba/2, acc + "1")
+            case _ if liczba%2 == 0 => go(liczba/2, acc + "0")
         }
     }
-    reverseString(pomocnicza(liczba, "")).toInt
+    reverseString(go(liczba, "")).toInt
 }
 
 def last(list: List[Int]): Int ={
@@ -85,14 +85,14 @@ def take[A](list: List[A], n: Int): List[A] ={
 
 
 def drop[A](list: List[A], n: Int): List[A] = {
-  def pom[A](list: List[A], n: Int): List[A] = {
+  def go[A](list: List[A], n: Int): List[A] = {
     (n, list) match {
       case (0, _) => list
-      case (_, head::tail) => pom(tail, n-1)
+      case (_, head::tail) => go(tail, n-1)
       case (_, _) => Nil
     }
   }
-  pom(list, n)
+  go(list, n)
 }
 
 def length[A](list: List[A]): Int = {
