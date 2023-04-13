@@ -164,5 +164,5 @@ def filter[A](list: List[A],f: A=>Boolean): List[A] = {
       }
     }
     go(list, Nil)
-
+}
 
