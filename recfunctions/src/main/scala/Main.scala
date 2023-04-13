@@ -1,3 +1,7 @@
+// PATENT NA EX-AEQUO
+  // val klasyfikacja = wyniki
+  // .map(w => Wynik(wyniki.filter(el => (el.suma > w.suma) || (el.suma == w.suma && el.średniWdzięk > w.średniWdzięk)).length + 1, w.imię, w.nazwisko, w.średniWdzięk, w.średniSpryt, w.suma))
+
 // isPrime
 def isPrime(n: Int): Boolean = {
   require(n >= 2)
@@ -429,8 +433,7 @@ def groupBy[A](ls: List[A]) : Map[A,List[A]] = {
   // println(pack(listInt2))
 
   // --- groupBy po identity ---
-  println(groupBy(listInt2))
-
+  // println(groupBy(listInt2))
 }
 
 
