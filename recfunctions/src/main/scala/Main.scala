@@ -2,19 +2,19 @@
   // val klasyfikacja = wyniki
   // .map(w => Wynik(wyniki.filter(el => (el.suma > w.suma) || (el.suma == w.suma && el.średniWdzięk > w.średniWdzięk)).length + 1, w.imię, w.nazwisko, w.średniWdzięk, w.średniSpryt, w.suma))
 
-// isPrime
+// isPrime - working
 def isPrime(n: Int): Boolean = {
-  require(n >= 2)
-
   @annotation.tailrec
   def go(a: Int, b: Int): Boolean = {
     b match {
       case 1 => true
-      case _ if a%b == 0 => false
-      case _ if a%b != 0 => go(a, b/2)
+      case _ if (a <= 1) => false
+      case _ if (a%b == 0) && (b>0)=> false
+      case _ if (a%b != 0) && (b>0) => go(a, b-1)
+      case _ => true
     }
   }
-  go(n, n/2)
+  go(n, n-1)
 }
 
 // reverseString
@@ -270,7 +270,46 @@ def insertElementInIndex[A](list: List[A], el: A, index: Int): List[A] = {
 }
 
 // Sortowanie przez wybór (tylko listy o podobnych i porównywalnych do siebie elementach)
-// sort
+// sort - old
+// def sort[A](list: List[A]): List[A] = {
+//     def mySortReverse[B](arr: List[B], acc: List[B] = List()): List[B] = arr match {
+//        case head :: tail => mySortReverse(tail, head :: acc)
+//        case Nil => acc
+//     }
+//     def sortHelp(list: List[A], acc: List[A] = List()): List[A] = {
+//         def greaterThan[D](el1: D, el2: D): Boolean = {
+//             el1 match {
+//                 case _: Int => if (el1.toString.toInt > el2.toString.toInt) then true else false
+//                 case _: String => if (el1.toString.toString > el2.toString) then true else false
+//                 case _: Char => if (el1.toString > el2.toString) then true else false
+//                 case _ => throw new Exception("----------- SORT IS SAYING: ELEMENTS NOT COMPARABLE -----------")
+//             }
+//         }
+//         def minimalElement(list: List[A], mini: A): A = {
+//             list match {
+//                 case head :: tail if greaterThan(mini, head) => minimalElement(tail, head)
+//                 case head :: tail => minimalElement(tail, mini)
+//                 case _ => mini
+//             }
+//         }
+//         def myDelete(list: List[A], el: A, acc: List[A] = List(), isDeleted: Boolean = false): List[A] = {
+//             list match {
+//                 case head :: tail if (isDeleted) => myDelete(tail, el, head :: acc, true)
+//                 case head :: tail if (head == el) => myDelete(tail, el, acc, true)
+//                 case head :: tail => myDelete(tail, el, head :: acc, false)
+//                 case _ => mySortReverse(acc)
+//             }
+//         }
+//         list match {
+//             case head :: tail => sortHelp(myDelete(list, minimalElement(list, head)), minimalElement(list, head) :: acc)
+//             case _ => mySortReverse(acc)
+//         }
+//     }
+//     sortHelp(list)
+// }
+
+
+// sort generyczny - do intów i floatów
 def sort[A](list: List[A]): List[A] = {
     def mySortReverse[B](arr: List[B], acc: List[B] = List()): List[B] = arr match {
        case head :: tail => mySortReverse(tail, head :: acc)
@@ -280,6 +319,11 @@ def sort[A](list: List[A]): List[A] = {
         def greaterThan[D](el1: D, el2: D): Boolean = {
             el1 match {
                 case _: Int => if (el1.toString.toInt > el2.toString.toInt) then true else false
+                case _: Float => if (el1.toString.toFloat > el2.toString.toFloat) then true else false
+                case _: Double => if (el1.toString.toDouble > el2.toString.toDouble) then true else false
+                case _: Long => if (el1.toString.toLong > el2.toString.toLong) then true else false
+                case _: Short => if (el1.toString.toShort > el2.toString.toShort) then true else false
+                case _: Byte => if (el1.toString.toByte > el2.toString.toByte) then true else false
                 case _: String => if (el1.toString.toString > el2.toString) then true else false
                 case _: Char => if (el1.toString > el2.toString) then true else false
                 case _ => throw new Exception("----------- SORT IS SAYING: ELEMENTS NOT COMPARABLE -----------")
@@ -307,6 +351,7 @@ def sort[A](list: List[A]): List[A] = {
     }
     sortHelp(list)
 }
+
 
 // pack
 def pack[A](list: List[A]): List[List[A]] = {
@@ -354,6 +399,7 @@ def groupBy[A](ls: List[A]) : Map[A,List[A]] = {
   println("Welcome to code snippets for Scala")
 
   // --- isPrime ---
+  // println(isPrime(9))
   // println(isPrime(primeNum))
   // println(isPrime(nonPrimeNum))
 
@@ -439,9 +485,11 @@ def groupBy[A](ls: List[A]) : Map[A,List[A]] = {
   // println(listOther)
   // println(insertElementInIndex(listOther, false, 2))
 
+  val listFloat = List(-0.5, 0.2, 0.25, -1, 23.33, 50, 23.32)
   // --- sort ---
   // println(sort(listInt))
   // println(sort(listInt3))
+  // println(sort(listFloat))
 
   // --- pack ---
   // println(pack(listInt2))
