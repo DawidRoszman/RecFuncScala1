@@ -204,9 +204,9 @@ def split(str: String, delimiter: String): List[String] = {
 def max(arr: List[Int]): Int = {
   @annotation.tailrec
   def maxLoop(arrL: List[Int], currMax: Option[Int] = None): Option[Int] = (arrL, currMax) match {
-    case (head :: _, None) => maxLoop(arrL, Some(head)) 
+    case (head :: _, None) => maxLoop(arrL, Some(head))
     case (head :: tail, Some(value)) => if head > value then maxLoop(tail, Some(head)) else maxLoop(tail, Some(value))
-    case (Nil, Some(value)) => Some(value) 
+    case (Nil, Some(value)) => Some(value)
     case (Nil, None) => None
   }
   val res = maxLoop(arr)
@@ -240,7 +240,7 @@ def sliding[A](list: List[A])(len: Int, shift: Int = 1): List[List[A]] = {
     case head :: tail if (curLen > 0) => slidLoop(list, tail)(len, shift, curLen - 1, head :: res, acc)
     case head :: tail if (curLen == 0) => slidLoop(drop(list, shift), drop(list, shift))(len, shift, len, Nil, reverseList(res) :: acc)
     case _ if (res != Nil) => reverseList(reverseList(res) :: acc)
-    case _ => reverseList(acc) 
+    case _ => reverseList(acc)
   }
 
   slidLoop(list, list)(len, shift, len)
@@ -286,7 +286,7 @@ def sort[A](list: List[A]): List[A] = {
             }
         }
         def minimalElement(list: List[A], mini: A): A = {
-            list match { 
+            list match {
                 case head :: tail if greaterThan(mini, head) => minimalElement(tail, head)
                 case head :: tail => minimalElement(tail, mini)
                 case _ => mini
@@ -338,6 +338,7 @@ def groupBy[A](ls: List[A]) : Map[A,List[A]] = {
   val listInt = List(5, 1, 2, 5, 7, -5, 12)
   val listInt2 = List(1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 5, 7, 8, 2)
   val listStr = List("Anna", "Kasia", "Irena")
+  println("Welcome to code snippets for Scala")
 
   // --- isPrime ---
   // println(isPrime(primeNum))
@@ -446,7 +447,7 @@ def groupBy[A](ls: List[A]) : Map[A,List[A]] = {
   println(res2)
 
 extension[A: Ordering] (c: List[A])
-  def groupBy2[Key](f: A => Key): Map[Key, List[A]] = 
+  def groupBy2[Key](f: A => Key): Map[Key, List[A]] =
     def helper(cc: List[A], acc: Map[Key, List[A]]): Map[Key, List[A]] = cc match
       case head :: tail => helper(tail, acc + (f(head) -> (head :: acc.getOrElse(f(head), List(head)))))
       case Nil => acc
@@ -454,7 +455,7 @@ extension[A: Ordering] (c: List[A])
     helper(c, Map.empty)
 
 
-def groupBy3[A, Key](c: List[A])(f: A => Key): Map[Key, List[A]] = 
+def groupBy3[A, Key](c: List[A])(f: A => Key): Map[Key, List[A]] =
   def helper(cc: List[A], acc: Map[Key, List[A]]): Map[Key, List[A]] = cc match
     case head :: tail => helper(tail, acc + (f(head) -> (head :: acc.getOrElse(f(head), List(head)))))
     case Nil => acc
