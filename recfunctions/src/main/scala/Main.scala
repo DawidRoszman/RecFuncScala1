@@ -320,6 +320,16 @@ def pack[A](list: List[A]): List[List[A]] = {
     packHelp(list).reverse
 }
 
+def reduce[A](list: List[A])(f: (A, A) => A): A = {
+    val first = last(reverseList(list))
+    def reduceHelp(list: List[A], acc: A = first, idx: Int = 0): A = list match {
+        case head :: tail if idx != 0 => reduceHelp(tail, f(acc, head), idx + 1)
+        case head :: tail => reduceHelp(tail, acc, idx + 1)
+        case _ => acc
+    }
+    reduceHelp(list)
+}
+
 // groupBy - po identity
 def groupBy[A](ls: List[A]) : Map[A,List[A]] = {
   @annotation.tailrec
@@ -338,6 +348,9 @@ def groupBy[A](ls: List[A]) : Map[A,List[A]] = {
   val listInt = List(5, 1, 2, 5, 7, -5, 12)
   val listInt2 = List(1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 5, 7, 8, 2)
   val listStr = List("Anna", "Kasia", "Irena")
+  val listTest = List(2,2)
+  println(reduce(listTest)(_ + _))
+  println(listTest.reduce(_ + _))
   println("Welcome to code snippets for Scala")
 
   // --- isPrime ---
@@ -461,3 +474,7 @@ def groupBy3[A, Key](c: List[A])(f: A => Key): Map[Key, List[A]] =
     case Nil => acc
 
   helper(c, Map.empty)
+
+
+
+
